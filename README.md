@@ -32,7 +32,7 @@ src="https://i.ibb.co/XkNgFfrf/malvin-xd.jpg?">
 <a><img src='https://i.imgur.com/LyHic3i.gif'/>
 
 
-## 🛠️ `JINBOT INSTALATION`
+## 🛠️ `BOT INSTALATION`
 
 
 
