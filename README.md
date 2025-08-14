@@ -165,7 +165,7 @@ npm i -g pm2 && pm2 start index.js -f && pm2 save && pm2 logs
 
 > DEVELOPER OF VINIC-XMD 
 - [KEVINTECH](https://github.comTKevintech-hub)
-- Creater and Owner Of VINIC-XMD 
+- Creator and Owner Of VINIC-XMD 
 
 > VINIC-XMD Helper
 - [Malvin King](https://github.com/XdKing2)
