@@ -18,23 +18,32 @@ global.botname = "Vinic-Xmd";
 global.namasaluran = "KEVIN";
 global.idsaluran = "120363398454335106@newsletter";
 global.linksaluran = "";
+global.SESSION_ID = ""; 
 
 // ========= Setting Status ========= //
-global.autoviewstatus = true;
-global.welcome = true;
-global.adminevent = false;
+global.autostatus = true;
 global.antispam = true;
 global.autoread = false;
-global.anticall = true;
+// setting/config.js - Add this to your config
+global.anticall = "off", "decline", "block" 
+global.antilink = true;
+global.autoreact = false
 global.antibug = true;
-global.autobio = true;
+global.autobio = false;
 global.autoTyping = false;
 global.autorecording = false;
 global.prefa = ['', '!', '.', ',', '🐤', '🦦'];
 
+// ========= Anti-Delete Feature ========= //
+global.antidelete = true; // Set to false to disable anti-delete feature
+
+// ========= Other Global Settings ========= //
+global.welcome = true; // welcome setting
+global.adminevent = true; // admin event setting
+
 // ========= Add modeStatus and versions ========= //
 global.modeStatus = "Public"; // Added for connection notice
-global.versions = "1.0.0"; // Added for connection notice
+global.versions = "1.2.4"; // Added for connection notice
 
 // ========= Setting WM ========= //
 global.packname = 'Vinic';
