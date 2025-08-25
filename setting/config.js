@@ -30,6 +30,7 @@ global.antilink = true;
 global.autoreact = false
 global.antibug = true;
 global.autobio = false;
+global.chatbot = false;
 global.autoTyping = false;
 global.autorecording = false;
 global.prefa = ['', '!', '.', ',', '🐤', '🦦'];
