@@ -1,10 +1,20 @@
 const fs = require('fs');
-const { Writer } = require('steno');
+
 class TextFile {
     constructor(filename) {
         this.filename = filename;
-        this.writer = new Writer(filename);
+        this.writer = null;
     }
+
+    async #getWriter() {
+        if (!this.writer) {
+            // Dynamic import for ESM package
+            const { Writer } = await import('steno');
+            this.writer = new Writer(this.filename);
+        }
+        return this.writer;
+    }
+
     async read() {
         let data;
         try {
@@ -18,8 +28,11 @@ class TextFile {
         }
         return data;
     }
-    write(str) {
-        return this.writer.write(str);
+
+    async write(str) {
+        const writer = await this.#getWriter();
+        return writer.write(str);
     }
 }
+
 module.exports = { TextFile };
