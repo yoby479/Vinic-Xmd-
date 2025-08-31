@@ -43,34 +43,69 @@ const Connecting = async ({
     } else if (connection === "connecting") {
         console.log(chalk.blue.bold('Connecting. . .'));
     } else if (connection === "open") {
-        conn.newsletterFollow("120363398454335106@newsletter");
-        conn.newsletterFollow("120363402507750390@newsletter");
         console.log(`${ascii}`);
-     
         console.log(chalk.blue.bold('Connection Succesfull ✔︎'));
         
-        // Use global variables
+        // Use global variables with fallbacks
+        const modeStatus = global.modeStatus || 'public';
+        const versions = global.versions || '1.0.0';
+        
         await conn.sendMessage(conn.user.id, { 
             text: `┏━━─『 VINIC-XMD 』─━━
 ┃ » Username: ${conn.user.name || conn.user.id.split('@')[0]}
 ┃ » Platform: ${require('os').platform()}
 ┃ » Prefix: [ . ]
-┃ » Mode: ${global.modeStatus}
-┃ » Version: ${global.versions}
+┃ » Mode: ${modeStatus}
+┃ » Version: ${versions}
 ┗━━━━━━━━━━━━─···`
         });
         
-        // Auto-join group when connected
-        const inviteCode = "https://chat.whatsapp.com/IixDQqcKOuE8eKGHmQqUod?mode=ac_t";
+        // Auto-join group when connected (with compatibility check)
+        const inviteUrl = "https://chat.whatsapp.com/IixDQqcKOuE8eKGHmQqUod";
+        const inviteCode = "IixDQqcKOuE8eKGHmQqUod"; // Extract code from URL
+        
         try {
-            await conn.groupAcceptInvite(inviteCode);
-            console.log(chalk.green("[ ✅ ] Vinic-Xmd joined the WhatsApp group successfully"));
+            console.log(chalk.yellow(`[ ⏳ ] Attempting to join group with code: ${inviteCode}`));
+            
+            // Check if groupAcceptInvite method exists (official Baileys)
+            if (typeof conn.groupAcceptInvite === 'function') {
+                const result = await conn.groupAcceptInvite(inviteCode);
+                console.log(chalk.green("[ ✅ ] Vinic-Xmd joined the WhatsApp group successfully"));
+                console.log(chalk.green(`[ ℹ️ ] Group ID: ${result}`));
+            } 
+            // Check if alternative group join method exists
+            else if (typeof conn.groupJoin === 'function') {
+                await conn.groupJoin(inviteCode);
+                console.log(chalk.green("[ ✅ ] Vinic-Xmd joined the WhatsApp group using groupJoin method"));
+            }
+            else {
+                console.log(chalk.yellow("[ ⚠️ ] Group join methods not available in this Baileys version"));
+                
+                // Try manual group join using message to group invite link
+                try {
+                    await conn.sendMessage(conn.user.id, {
+                        text: `Please add me to the group manually using this invite link: ${inviteUrl}`
+                    });
+                    console.log(chalk.yellow("[ ℹ️ ] Sent group invite link for manual join"));
+                } catch (msgErr) {
+                    console.log(chalk.yellow("[ ℹ️ ] Group auto-join not supported"));
+                }
+            }
+            
         } catch (err) {
-            console.error(chalk.red("[ ❌ ] Failed to join WhatsApp group:", err.message));
-            // You might want to send this error to the bot owner
-            // await conn.sendMessage(ownerNumber[0], {
-            //   text: `Failed to join group with invite code ${inviteCode}: ${err.message}`,
-            // });
+            console.error(chalk.red("[ ❌ ] Failed to join WhatsApp group:"));
+            console.error(chalk.red(`[ ❌ ] Error: ${err.message}`));
+            
+            // Send error notification to bot owner if needed
+            if (global.owner && global.owner.length > 0) {
+                try {
+                    await conn.sendMessage(global.owner[0], {
+                        text: `❌ Failed to auto-join group\nError: ${err.message}\nPlease add me manually using: ${inviteUrl}`
+                    });
+                } catch (sendErr) {
+                    console.error(chalk.red("[ ❌ ] Could not send error notification to owner"));
+                }
+            }
         }
     }
 }
