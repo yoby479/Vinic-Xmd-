@@ -44,7 +44,7 @@ global.adminevent = true; // admin event setting
 
 // ========= Add modeStatus and versions ========= //
 global.modeStatus = "Public"; // Added for connection notice
-global.versions = "1.2.4"; // Added for connection notice
+global.versions = "1.2.5"; // Added for connection notice
 
 // ========= Setting WM ========= //
 global.packname = 'Vinic';
