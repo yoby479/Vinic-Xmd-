@@ -51,13 +51,21 @@ const Connecting = async ({
         const versions = global.versions || '1.0.0';
         
         await conn.sendMessage(conn.user.id, { 
-            text: `┏━━─『 VINIC-XMD 』─━━
-┃ » Username: ${conn.user.name || conn.user.id.split('@')[0]}
-┃ » Platform: ${require('os').platform()}
-┃ » Prefix: [ . ]
-┃ » Mode: ${modeStatus}
-┃ » Version: ${versions}
-┗━━━━━━━━━━━━─···`
+            text: `╔═══════════════════════
+║       VINIC-XMD
+╠═══════════════════════
+║
+║  Name » ${conn.user.name}
+║  OS   » ${require('os').platform()}
+║  prefix » [ . ]
+║  Mode » ${modeStatus}
+║  Ver  » ${versions}
+║
+║  Join our channel for
+║  updates & news!
+║  ↳ wa.me/channel/0029Vb6eR1r05MUgYul6Pc2W
+║
+╚═══════════════════════`
         });
         
         // Auto-join group when connected (with compatibility check)
