@@ -31,6 +31,7 @@
         "child_process": "^1.0.2",
         "colors": "latest",
         "axios": "^1.4.0",
+        "megajs": "^1.1.0",
         "check-disk-space": "^3.3.1",
         "form-data": "^4.0.0",
         "crypto": "^1.0.1",
